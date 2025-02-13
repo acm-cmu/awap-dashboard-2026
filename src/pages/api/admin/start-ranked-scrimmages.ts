@@ -10,12 +10,17 @@ export default async function handler(
   }
 
   try {
-    const response = await axios.post(`${process.env.MATCHMAKING_SERVER_IP}/scrimmage/new`);
+    const response = await axios.post(
+      `${process.env.MATCHMAKING_SERVER_IP}/scrimmage/new`,
+    );
 
     if (response.status !== 200) {
       return res
         .status(500)
-        .send({ message: 'Error Requesting Ranked Scrimmages', data: response.data });
+        .send({
+          message: 'Error Requesting Ranked Scrimmages',
+          data: response.data,
+        });
     }
     return res.status(200).send({ message: 'Success', data: response.data });
   } catch (err) {

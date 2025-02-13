@@ -1,9 +1,6 @@
 import axios from 'axios';
 import { NextApiRequest, NextApiResponse } from 'next';
-import {
-  DynamoDB,
-  DynamoDBClientConfig,
-} from '@aws-sdk/client-dynamodb';
+import { DynamoDB, DynamoDBClientConfig } from '@aws-sdk/client-dynamodb';
 import { DynamoDBDocument, GetCommand } from '@aws-sdk/lib-dynamodb';
 
 const config: DynamoDBClientConfig = {
@@ -20,7 +17,6 @@ const client = DynamoDBDocument.from(new DynamoDB(config), {
     convertClassInstanceToMap: true,
   },
 });
-
 
 export default async function handler(
   req: NextApiRequest,
@@ -66,7 +62,10 @@ export default async function handler(
   if (!playerInfo.Item || !oppInfo.Item)
     return res
       .status(400)
-      .send({ message: 'Error creating match request', error: 'No player bot' });
+      .send({
+        message: 'Error creating match request',
+        error: 'No player bot',
+      });
 
   if (!playerInfo.Item.active_version || !oppInfo.Item.active_version)
     return res.status(400).send({
