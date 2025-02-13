@@ -74,7 +74,7 @@ const Login: NextPage = () => {
                         onChange={(e) => setPassword(e.target.value)}
                         type='password'
                         name='password'
-                        minLength={8}
+                        minLength={3}
                         maxLength={20}
                         required
                         placeholder='Password'
