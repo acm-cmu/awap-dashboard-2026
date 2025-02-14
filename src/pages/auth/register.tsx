@@ -18,6 +18,7 @@ import { signIn } from 'next-auth/react';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
+import Link from 'next/link';
 
 const Register: NextPage = () => {
   const router = useRouter();
@@ -86,7 +87,10 @@ const Register: NextPage = () => {
             <Card className='mb-4 rounded-0'>
               <Card.Body className='p-4'>
                 <h1 className='text-center'>Register for AWAP 2025</h1>
-                <p className='text-black-50'>Create your team account</p>
+                <p className='text-black-50'>
+                  Create your team account. Already have an account?{' '}
+                  <Link href='/auth/login'>Login</Link>
+                </p>
 
                 <form onSubmit={register}>
                   <InputGroup className='mb-3'>

@@ -9,6 +9,7 @@ import { useRouter } from 'next/router';
 
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Link from 'next/link';
 
 const Login: NextPage = () => {
   const [username, setUsername] = useState('');
@@ -46,7 +47,8 @@ const Login: NextPage = () => {
                 <div className=''>
                   <h1>AWAP 2025 Login</h1>
                   <p className='text-black-50'>
-                    Sign In to your AWAP Dashboard
+                    Sign in to the AWAP Dashboard. Don&apos;t have an account?{' '}
+                    <Link href='/auth/register'>Register</Link>
                   </p>
 
                   <form onSubmit={login}>
