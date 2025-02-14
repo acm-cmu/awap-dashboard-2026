@@ -52,7 +52,7 @@ export default function UserLayout({ children }: PropsWithChildren) {
         <title>AWAP 2025 - Dashboard</title>
         <meta
           name='description'
-          content='ACM@CMU presents Mars Makeover - explore, gather, and terraform with your algorithms to win!'
+          content='ACM@CMU presents Raid CMU Legends - explore, gather, and fight to expand your kingdom!'
         />
         <link rel='icon' href='/favicon.ico' />
       </Head>
