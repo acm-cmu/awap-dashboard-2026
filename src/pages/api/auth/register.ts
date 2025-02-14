@@ -6,7 +6,7 @@ import {
 } from '@aws-sdk/lib-dynamodb';
 
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { hash } from 'bcrypt';
+import { hash } from 'bcryptjs';
 
 const config: DynamoDBClientConfig = {
   credentials: {

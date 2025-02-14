@@ -5,7 +5,7 @@ import NextAuth, { NextAuthOptions } from 'next-auth';
 
 import CredentialsProvider from 'next-auth/providers/credentials';
 
-import { compare } from 'bcrypt';
+import { compare } from 'bcryptjs';
 
 const config: DynamoDBClientConfig = {
   credentials: {
