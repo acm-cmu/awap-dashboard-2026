@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useMemo } from 'react';
 import {
   MaterialReactTable,
@@ -8,7 +9,6 @@ import { TeamBot } from '@pages/api/admin/admin-bot-history';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const DownloadCell = (cell: { row: { original: { bot: any } } }) => {
   const { row } = cell;
   const url = row.original.bot;

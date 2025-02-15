@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { GetServerSideProps, NextPage } from 'next';
 import { UserLayout } from '@layout';
 import { Card, Table, Form } from 'react-bootstrap';

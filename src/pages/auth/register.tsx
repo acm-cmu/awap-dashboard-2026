@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { NextPage } from 'next';
 import { faUser } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';

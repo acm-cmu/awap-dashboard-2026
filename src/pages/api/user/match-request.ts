@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import axios from 'axios';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { DynamoDB, DynamoDBClientConfig } from '@aws-sdk/client-dynamodb';

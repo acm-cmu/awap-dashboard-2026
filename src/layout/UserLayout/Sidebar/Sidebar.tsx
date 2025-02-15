@@ -1,8 +1,5 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAngleLeft } from '@fortawesome/free-solid-svg-icons';
 import React, { useEffect, useState } from 'react';
 import classNames from 'classnames';
-import { Button } from 'react-bootstrap';
 import Image from 'next/image';
 import SidebarNav from './SidebarNav';
 
@@ -10,11 +7,11 @@ export default function Sidebar(props: { isShow: boolean; isShowMd: boolean }) {
   const { isShow, isShowMd } = props;
   const [isNarrow, setIsNarrow] = useState(false);
 
-  const toggleIsNarrow = () => {
-    const newValue = !isNarrow;
-    localStorage.setItem('isNarrow', newValue ? 'true' : 'false');
-    setIsNarrow(newValue);
-  };
+  // const toggleIsNarrow = () => {
+  //   const newValue = !isNarrow;
+  //   localStorage.setItem('isNarrow', newValue ? 'true' : 'false');
+  //   setIsNarrow(newValue);
+  // };
 
   // On first time load only
   useEffect(() => {

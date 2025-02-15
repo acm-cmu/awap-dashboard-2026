@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { UserLayout } from '@layout';
 import { NextPage } from 'next';
 import { useSession } from 'next-auth/react';

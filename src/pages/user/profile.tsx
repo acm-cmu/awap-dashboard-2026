@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable max-len */
 import type { NextPage } from 'next';
 import { UserLayout } from '@layout';
