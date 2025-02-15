@@ -9,3 +9,7 @@ $enable-negative-margins: true;
 @import 'layout/sidebar';
 
 @import '_custom';
+
+.wrapper {
+    background-color: $main-background !important;
+}
