@@ -26,7 +26,7 @@ result.
 You can start editing the page by modifying `pages/index.tsx`. The page
 auto-updates as you edit the file.
 
-To deploy, make sure someone with access to Vercel deploys the app due to deployment protection.
+To deploy, make sure someone with access to Vercel deploys the app due to deployment protection. Don't be stupid here.
 
 [API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on
 [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This
