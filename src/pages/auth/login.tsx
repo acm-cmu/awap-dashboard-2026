@@ -46,7 +46,7 @@ const Login: NextPage = () => {
             <Row className='justify-content-center align-items-center'>
               <Col md={7} className='bg-white border p-5'>
                 <div className=''>
-                  <h1>AWAP 2025 Login</h1>
+                  <h1>AWAP 2026 Login</h1>
                   <p className='text-black-50'>
                     Sign in to the AWAP Dashboard. Don&apos;t have an account?{' '}
                     <Link href='/auth/register'>Register</Link>

@@ -49,7 +49,7 @@ export default function UserLayout({ children }: PropsWithChildren) {
   return (
     <>
       <Head>
-        <title>AWAP 2025 - Dashboard</title>
+        <title>AWAP 2026 - Dashboard</title>
         <meta
           name='description'
           content='ACM@CMU presents Raid CMU Legends - explore, gather, and fight to expand your kingdom!'
