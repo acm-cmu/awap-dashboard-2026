@@ -413,7 +413,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const teamDataInfo: TeamData = {
     members,
     teamname: teamData.name,
-    rating: teamData.num,
+    rating: teamData.rating,
     authenticated,
     bracket: teamData.bracket,
     secret_key: teamData.secret_key,

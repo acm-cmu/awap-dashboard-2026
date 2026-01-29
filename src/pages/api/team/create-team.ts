@@ -68,7 +68,7 @@ export default async function handler(
           name: { S: teamName },
           members: { SS: [user] },
           bracket: { S: 'beginner' },
-          num: { N: '1000' },
+          rating: { N: '1000' },
           active_version: { S: '' },
           secret_key: { S: generateSecretKey() },
         },
