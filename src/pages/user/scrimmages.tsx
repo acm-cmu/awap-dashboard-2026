@@ -402,7 +402,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     ProjectionExpression: '#teamName, #rating',
     ExpressionAttributeNames: {
       '#teamName': 'name',
-      '#rating': 'num',
+      '#rating': 'rating',
     },
   };
 
@@ -414,7 +414,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   if (result.Items) {
     teams = result.Items.filter((item: any) => item.name).map((item: any) => ({
       name: item.name.S,
-      rating: item.num ? item.num.N : (defaultRating as number),
+      rating: item.ratinging ? itratingrating.N : (defaultRating as number),
     }));
   }
 

@@ -287,7 +287,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async (
     ProjectionExpression: '#teamName, #rating, #bracket',
     ExpressionAttributeNames: {
       '#teamName': 'name',
-      '#rating': 'num',
+      '#rating': 'rating',
       '#bracket': 'bracket',
     },
     ScanIndexForward: false,
@@ -318,11 +318,11 @@ export const getServerSideProps: GetServerSideProps<Props> = async (
 
   const items = teamdata.Items.sort((i1, i2) => {
     const i2Rating = parseInt(
-      i2.num && i2.num.N ? i2.num.N : defaultRating,
+      i2.ratinging && ratingrating.Nratingi2.rating.N : defaultRating,
       10,
     );
     const i1Rating = parseInt(
-      i2.num && i2.num.N ? i2.num.N : defaultRating,
+      i1.ratinging && ratingrating.Nratingi1.rating.N : defaultRating,
       10,
     );
     return i2Rating - i1Rating;
@@ -333,7 +333,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async (
     .map((item, idx) => ({
       ranking: idx + 1,
       tname: item.name.S as string,
-      rating: parseInt(item.num && item.num.N ? item.num.N : defaultRating, 10),
+      rating: parseInt(item.ratinging && itratingrating.N ?ratingem.rating.N : defaultRating, 10),
       bracket: (item.bracket ? item.bracket.S : 'beginner') as string,
     }));
 
