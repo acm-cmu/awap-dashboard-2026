@@ -318,11 +318,11 @@ export const getServerSideProps: GetServerSideProps<Props> = async (
 
   const items = teamdata.Items.sort((i1, i2) => {
     const i2Rating = parseInt(
-      i2.ratinging && ratingrating.Nratingi2.rating.N : defaultRating,
+      i2.rating && i2.rating.N ? i2.rating.N : defaultRating,
       10,
     );
     const i1Rating = parseInt(
-      i1.ratinging && ratingrating.Nratingi1.rating.N : defaultRating,
+      i1.rating && i1.rating.N ? i1.rating.N : defaultRating,
       10,
     );
     return i2Rating - i1Rating;
@@ -333,7 +333,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async (
     .map((item, idx) => ({
       ranking: idx + 1,
       tname: item.name.S as string,
-      rating: parseInt(item.ratinging && itratingrating.N ?ratingem.rating.N : defaultRating, 10),
+      rating: parseInt(item.rating && item.rating.N ? item.rating.N : defaultRating, 10),
       bracket: (item.bracket ? item.bracket.S : 'beginner') as string,
     }));
 

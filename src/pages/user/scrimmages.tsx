@@ -414,7 +414,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   if (result.Items) {
     teams = result.Items.filter((item: any) => item.name).map((item: any) => ({
       name: item.name.S,
-      rating: item.ratinging ? itratingrating.N : (defaultRating as number),
+      rating: item.rating ? item.rating.N : (defaultRating as number),
     }));
   }
 
