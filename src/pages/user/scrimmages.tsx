@@ -98,11 +98,9 @@ const TableBody: React.FC<{ data: Match[] }> = ({ data }) => (
   // eslint-disable-next-line react/jsx-key
   <tbody>
     {data &&
-      data.map((item: Match) => {
-        // filter out matches that are tournament matches
-        if (item.type.toLowerCase() === 'tournament') return null;
-        return <TableRow match={item} key={item.id} />;
-      })}
+      data.map((item: Match) => (
+        <TableRow match={item} key={item.id} />
+      ))}
   </tbody>
 );
 
@@ -255,6 +253,7 @@ const Scrimmages: NextPage = ({
   teams,
   configData,
   maps,
+  showTournamentMatchHistory,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const session = useSession({ required: true });
   const [CurrentTeamSearch, setCurrentTeamSearch] = useState<Team | null>(null);
@@ -269,6 +268,14 @@ const Scrimmages: NextPage = ({
     error,
     mutate,
   } = useSWR('/api/user/match-history', fetcher);
+
+  // Filter out tournament matches if SHOW_TOURNAMENT_MATCH_HISTORY is not enabled
+  let filteredMatchData = MatchData;
+  if (MatchData && !showTournamentMatchHistory) {
+    filteredMatchData = MatchData.filter(
+      (match: Match) => match.type !== 'TOURNAMENT',
+    );
+  }
 
   if (error) <p>Loading failed...</p>;
   if (
@@ -313,7 +320,7 @@ const Scrimmages: NextPage = ({
           >
             Refresh
           </Button>
-          <ScrimmagesTable data={MatchData} />
+          <ScrimmagesTable data={filteredMatchData} />
         </Card.Body>
       </Card>
     </UserLayout>
@@ -437,6 +444,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       teams,
       configData: configs,
       maps,
+      showTournamentMatchHistory:
+        process.env.SHOW_TOURNAMENT_MATCH_HISTORY === 'true',
     }, // will be passed to the page component as props
   };
 };

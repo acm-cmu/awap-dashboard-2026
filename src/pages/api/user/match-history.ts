@@ -96,7 +96,7 @@ export default async function handler(
           : null,
         status: item.item_status.S,
         timestamp: item.timestamp ? item.timestamp.S : 'unknown',
-      })).filter((item: any) => item.type != "TOURNAMENT");
+      }));
     }
 
     for (let i = 0; i < teamMatchData.length; i += 1) {
