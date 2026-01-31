@@ -97,7 +97,7 @@ const TableRow: React.FC<{ match: Match }> = ({ match }) => {
 const TableBody: React.FC<{ data: Match[] }> = ({ data }) => {
   // eslint-disable-next-line react/jsx-key
 
-  const dataToDate = (a : Match, b : Match) => {
+  const dataToDate = (a: Match, b: Match) => {
     // parse the date to an int so it can be compared
     const dateA = new Date(a.timestamp).getTime();
     const dateB = new Date(b.timestamp).getTime();
@@ -244,8 +244,8 @@ const ScrimmagesTable: React.FC<{ data: Match[] }> = ({ data }) => (
     <thead>
       <tr>
         <th>ID</th>
-        <th>Player 1</th>
-        <th>Player 2</th>
+        <th>Red Team</th>
+        <th>Blue Team</th>
         <th>Map</th>
         <th>Status</th>
         <th>Outcome</th>

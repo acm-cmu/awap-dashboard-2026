@@ -25,14 +25,14 @@ const MatchTable = (props: { data: Match[] }) => {
       },
       {
         accessorKey: 'player1',
-        header: 'Team 1',
+        header: 'Red Team',
         filterVariant: 'autocomplete',
         size: 200,
         maxSize: 140,
       },
       {
         accessorKey: 'player2',
-        header: 'Team 2',
+        header: 'Blue Team',
         filterVariant: 'autocomplete',
         size: 200,
         maxSize: 140,
