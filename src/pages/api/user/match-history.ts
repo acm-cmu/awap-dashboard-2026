@@ -106,11 +106,11 @@ export default async function handler(
       } else if (teamMatchData[i].outcome === '0') {
         teamMatchData[i].outcome = 'TIE';
       } else if (teamMatchData[i].outcome === '-1') {
-        teamMatchData[i].outcome = 'WIN BY OPPONENT FAILURE'
+        teamMatchData[i].outcome = 'WIN BY OPPONENT FAILURE';
       } else if (teamMatchData[i].outcome === '-2') {
-        teamMatchData[i].outcome = 'LOSS BY SELF FAILURE'
+        teamMatchData[i].outcome = 'LOSS BY SELF FAILURE';
       } else if (teamMatchData[i].outcome === '-3') {
-        teamMatchData[i].outcome = 'TIE BY FAILURE'
+        teamMatchData[i].outcome = 'TIE BY FAILURE';
       }
     }
 
