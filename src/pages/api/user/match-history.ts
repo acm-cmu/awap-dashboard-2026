@@ -105,6 +105,12 @@ export default async function handler(
         teamMatchData[i].outcome = 'LOSS';
       } else if (teamMatchData[i].outcome === '0') {
         teamMatchData[i].outcome = 'TIE';
+      } else if (teamMatchData[i].outcome === '-1') {
+        teamMatchData[i].outcome = 'WIN BY OPPONENT FAILURE'
+      } else if (teamMatchData[i].outcome === '-2') {
+        teamMatchData[i].outcome = 'LOSS BY SELF FAILURE'
+      } else if (teamMatchData[i].outcome === '-3') {
+        teamMatchData[i].outcome = 'TIE BY FAILURE'
       }
     }
 
