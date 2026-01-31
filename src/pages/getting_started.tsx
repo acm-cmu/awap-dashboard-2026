@@ -31,7 +31,7 @@ const GettingStarted: NextPage = () => (
             dashboard.awap.acmatcmu.com
           </a>
           <br />
-          Player Guide:{' '}
+          API Guide:{' '}
           <a
             href='https://tinyurl.com/awap2026api'
             target='_blank'
@@ -39,6 +39,15 @@ const GettingStarted: NextPage = () => (
           >
             tinyurl.com/awap2026api
           </a>
+          <br />
+          Game Guide:{' '}
+          <a
+            href="https://docs.google.com/document/d/1OPeZTb3qI1b_D3z4Bc7oQRJelL-DbmMIO4nmD5qfJyQ/edit?usp=sharing"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            docs.google.com/document/d/1OPeZTb3qI1b_D3z4Bc7oQRJelL-DbmMIO4nmD5qfJyQ/edit?usp=sharing
+            </a>
           <br />
           Online 3D Replay Viewer:{' '}
           <a
