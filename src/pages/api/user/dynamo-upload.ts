@@ -32,7 +32,7 @@ export default async function handler(
   }
 
   try {
-    const { uploadedName, user, fileName, timeStamp } = req.body;
+    const { uploadedName, user, fileName, timestamp } = req.body;
     const s = process.env.S3_URL_TEMPLATE;
     const s3url = s + fileName;
     const primarykey = `team:${user}`;
@@ -55,7 +55,7 @@ export default async function handler(
           record_type: { S: 'bot' },
           s3_key: { S: fileName },
           upload_name: { S: uploadedName },
-          timeStamp: { S: timeStamp },
+          timestamp: { S: timestamp },
         },
       }),
     );

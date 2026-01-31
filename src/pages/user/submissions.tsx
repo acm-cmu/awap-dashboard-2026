@@ -46,7 +46,7 @@ interface Submission {
   fileName: string;
   s3Key: string;
   submissionURL: string;
-  timeStamp: string;
+  timestamp: string;
   isActive: boolean;
 }
 
@@ -84,7 +84,7 @@ const TableRow: React.FC<{
 
     <td>
       <div className='small text-black-50' />
-      <div className='fw-semibold'>{submission.timeStamp}</div>
+      <div className='fw-semibold'>{submission.timestamp}</div>
     </td>
     <td>
       <div className='small text-black-50' />
@@ -167,7 +167,7 @@ const Submissions: NextPage = ({
       uploadedName: file.name,
       user,
       fileName,
-      timeStamp: time,
+      timestamp: time,
       submissionID,
     });
     window.location.reload();
@@ -381,10 +381,10 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   const sorted = teamData
     .sort((a, b) => {
-      if (a.timeStamp === undefined) return 1;
-      if (b.timeStamp === undefined) return -1;
-      if (a.timeStamp === b.timeStamp) return 0;
-      return a.timeStamp > b.timeStamp ? 1 : -1;
+      if (a.timestamp === undefined) return 1;
+      if (b.timestamp === undefined) return -1;
+      if (a.timestamp === b.timestamp) return 0;
+      return a.timestamp > b.timestamp ? 1 : -1;
     })
     .reverse();
 
@@ -393,7 +393,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       fileName: sorted[i].upload_name as string,
       s3Key: sorted[i].s3_key,
       submissionURL: (process.env.S3_URL_TEMPLATE + sorted[i].s3_key) as string,
-      timeStamp: new Date(sorted[i].timeStamp).toLocaleString('en-US'),
+      timestamp: new Date(sorted[i].timestamp).toLocaleString('en-US'),
       isActive: (sorted[i].s3_key === activeVersion) as boolean,
     };
     submissionData.push(submission);

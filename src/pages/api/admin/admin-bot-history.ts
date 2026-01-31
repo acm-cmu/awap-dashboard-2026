@@ -59,7 +59,7 @@ export default async function handler(
     const botData = result.Items.map(
       (item: Record<string, AttributeValue>) => ({
         team: item.pk ? item.pk.S?.slice(5) : 'unknown',
-        upload_time: item.timeStamp ? item.timeStamp.S : 'unknown',
+        upload_time: item.timestamp ? item.timestamp.S : 'unknown',
         upload_name: item.upload_name ? item.upload_name.S : 'unknown',
         bot:
           item.s3_key && item.s3_key.S
