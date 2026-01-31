@@ -104,6 +104,8 @@ export default async function handler(
         teamMatchData[i].outcome = 'WIN';
       } else if (teamMatchData[i].outcome === '2') {
         teamMatchData[i].outcome = 'LOSS';
+      } else if (teamMatchData[i].outcome === '0') {
+        teamMatchData[i].outcome = 'TIE';
       }
     }
 

@@ -94,15 +94,26 @@ const TableRow: React.FC<{ match: Match }> = ({ match }) => {
   );
 };
 
-const TableBody: React.FC<{ data: Match[] }> = ({ data }) => (
+const TableBody: React.FC<{ data: Match[] }> = ({ data }) => {
   // eslint-disable-next-line react/jsx-key
-  <tbody>
+
+  const dataToDate = (a : Match, b : Match) => {
+    // parse the date to an int so it can be compared
+    const dateA = new Date(a.timestamp).getTime();
+    const dateB = new Date(b.timestamp).getTime();
+    // returns such that later dates are sorted first
+    return dateB - dateA;
+  };
+
+  data.sort(dataToDate);
+
+  return <tbody>
     {data &&
       data.map((item: Match) => (
         <TableRow match={item} key={item.id} />
       ))}
-  </tbody>
-);
+  </tbody>;
+};
 
 // Team Info Component Card and button to request match
 const TeamInfo: React.FC<{
