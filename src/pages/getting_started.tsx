@@ -33,11 +33,20 @@ const GettingStarted: NextPage = () => (
           <br />
           Player Guide:{' '}
           <a
-            href='http://tinyurl.com/debrisdefense'
+            href='https://tinyurl.com/awap2026api'
             target='_blank'
             rel='noopener noreferrer'
           >
-            tinyurl.com/debrisdefense
+            tinyurl.com/awap2026api
+          </a>
+          <br />
+          Online 3D Replay Viewer:{' '}
+          <a
+            href='https://www.acmatcmu.com/awap-viewer-2026/'
+            target='_blank'
+            rel='noopener noreferrer'
+          >
+            www.acmatcmu.com/awap-viewer-2026/
           </a>
           <br />
         </Card.Text>
