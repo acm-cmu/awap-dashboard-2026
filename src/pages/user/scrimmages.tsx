@@ -105,7 +105,7 @@ const TableBody: React.FC<{ data: Match[] }> = ({ data }) => {
     return dateB - dateA;
   };
 
-  data.sort(dataToDate);
+  if (data) data.sort(dataToDate);
 
   return <tbody>
     {data &&

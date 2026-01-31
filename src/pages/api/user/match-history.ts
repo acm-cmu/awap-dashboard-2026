@@ -50,7 +50,6 @@ export default async function handler(
 
   const user = session.user.name;
 
-  try {
     const userInfo = await client.send(
       new GetCommand({
         TableName: process.env.AWS_TABLE_NAME,
@@ -85,7 +84,7 @@ export default async function handler(
 
     if (matchHistoryResult.Items) {
       teamMatchData = matchHistoryResult.Items.map((item: any) => ({
-        id: item.match_id.N,
+        id: item.match_id.S.substring(0, 6),
         player1: item.players.L[0].M.teamName.S,
         player2: item.players.L[1].M.teamName.S,
         map: item.map ? item.map.S : 'Unknown',
@@ -114,7 +113,5 @@ export default async function handler(
       (a, b) => parseInt(b.id, 10) - parseInt(a.id, 10),
     );
     return res.status(200).json(sortedMatchData);
-  } catch (err) {
-    return res.status(500).json({ message: 'Internal server error.' });
-  }
+
 }
