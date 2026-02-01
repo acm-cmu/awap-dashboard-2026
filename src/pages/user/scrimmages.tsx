@@ -63,6 +63,16 @@ interface ConfigData {
   disabled_code_submissions: boolean;
 }
 
+// Helper function to format duration
+const formatDuration = (durationMs: number | null): string => {
+  if (durationMs === undefined || durationMs === null) {
+    return '-';
+  }
+  const minutes = Math.floor(durationMs / 60000);
+  const seconds = Math.floor((durationMs % 60000) / 1000);
+  return `${minutes}m ${seconds}s`;
+};
+
 // Table Component
 const TableRow: React.FC<{ match: Match }> = ({ match }) => {
   let backgroundColor;
@@ -83,6 +93,7 @@ const TableRow: React.FC<{ match: Match }> = ({ match }) => {
       <td>{match.status}</td>
       <td>{match.outcome}</td>
       <td>{match.type}</td>
+      <td>{formatDuration(match.duration)}</td>
       <td>
         {match.status === 'COMPLETE' && match.replay ? (
           <a href={match.replay}>Download</a>
@@ -251,6 +262,7 @@ const ScrimmagesTable: React.FC<{ data: Match[] }> = ({ data }) => (
         <th>Status</th>
         <th>Outcome</th>
         <th>Type</th>
+        <th>Duration</th>
         <th>Replay</th>
         <th>Timestamp</th>
       </tr>
@@ -279,7 +291,11 @@ const RoundRobinProgressBar: React.FC = () => {
 
   const progressPercent =
     roundRobinState.total > 0
-      ? Math.round((roundRobinState.completed / roundRobinState.total) * 100)
+      ? (
+        roundRobinState.completed === roundRobinState.total
+          ? 100
+          : Math.min(Math.round((roundRobinState.completed / roundRobinState.total) * 100), 99)
+      )
       : 0;
 
   const formatTimestamp = (timestamp: string) => {

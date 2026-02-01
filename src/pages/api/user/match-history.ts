@@ -36,6 +36,7 @@ export interface Match {
   replay: string | null;
   status: string;
   timestamp: string;
+  duration: number | null;
 }
 
 export default async function handler(
@@ -50,74 +51,75 @@ export default async function handler(
 
   const user = session.user.name;
 
-    const userInfo = await client.send(
-      new GetCommand({
-        TableName: process.env.AWS_TABLE_NAME,
-        Key: {
-          pk: `user:${user}`,
-          sk: `user:${user}`,
-        },
-        ProjectionExpression: 'team',
-      }),
-    );
-
-    if (!userInfo.Item) {
-      return res.status(401).json({ message: 'User not found.' });
-    }
-
-    const teamname = userInfo.Item.team;
-
-    const queryMatchParams: QueryCommandInput = {
+  const userInfo = await client.send(
+    new GetCommand({
       TableName: process.env.AWS_TABLE_NAME,
-      IndexName: process.env.AWS_REVERSE_INDEX,
-      KeyConditionExpression: 'sk = :team_name and begins_with(pk, :pk)',
-      ExpressionAttributeValues: {
-        ':team_name': { S: `team:${teamname}` },
-        ':pk': { S: 'match:' },
+      Key: {
+        pk: `user:${user}`,
+        sk: `user:${user}`,
       },
-    };
+      ProjectionExpression: 'team',
+    }),
+  );
 
-    const command = new QueryCommand(queryMatchParams);
-    const matchHistoryResult: QueryCommandOutput = await client.send(command);
+  if (!userInfo.Item) {
+    return res.status(401).json({ message: 'User not found.' });
+  }
 
-    let teamMatchData: Match[] = [];
+  const teamname = userInfo.Item.team;
 
-    if (matchHistoryResult.Items) {
-      teamMatchData = matchHistoryResult.Items.map((item: any) => ({
-        id: item.match_id.S.substring(0, 6),
-        player1: item.players.L[0].M.teamName.S,
-        player2: item.players.L[1].M.teamName.S,
-        map: item.map ? item.map.S : 'Unknown',
-        outcome: item.placement ? item.placement.N.toString() : 'PENDING',
-        type: item.category.S,
-        replay: item.s3_key
-          ? process.env.REPLAY_S3_URL_TEMPLATE + item.s3_key.S
-          : null,
-        status: item.item_status.S,
-        timestamp: item.timestamp ? item.timestamp.S : 'unknown',
-      }));
+  const queryMatchParams: QueryCommandInput = {
+    TableName: process.env.AWS_TABLE_NAME,
+    IndexName: process.env.AWS_REVERSE_INDEX,
+    KeyConditionExpression: 'sk = :team_name and begins_with(pk, :pk)',
+    ExpressionAttributeValues: {
+      ':team_name': { S: `team:${teamname}` },
+      ':pk': { S: 'match:' },
+    },
+  };
+
+  const command = new QueryCommand(queryMatchParams);
+  const matchHistoryResult: QueryCommandOutput = await client.send(command);
+
+  let teamMatchData: Match[] = [];
+
+  if (matchHistoryResult.Items) {
+    teamMatchData = matchHistoryResult.Items.map((item: any) => ({
+      id: item.match_id.S.substring(0, 6),
+      player1: item.players.L[0].M.teamName.S,
+      player2: item.players.L[1].M.teamName.S,
+      map: item.map ? item.map.S : 'Unknown',
+      outcome: item.placement ? item.placement.N.toString() : 'PENDING',
+      type: item.category.S,
+      replay: item.s3_key
+        ? process.env.REPLAY_S3_URL_TEMPLATE + item.s3_key.S
+        : null,
+      status: item.item_status.S,
+      timestamp: item.timestamp ? item.timestamp.S : 'unknown',
+      duration: item.duration ? item.duration.N : null,
+    }));
+  }
+
+  for (let i = 0; i < teamMatchData.length; i += 1) {
+    if (teamMatchData[i].outcome === '1') {
+      teamMatchData[i].outcome = 'WIN';
+    } else if (teamMatchData[i].outcome === '2') {
+      teamMatchData[i].outcome = 'LOSS';
+    } else if (teamMatchData[i].outcome === '0') {
+      teamMatchData[i].outcome = 'TIE';
+    } else if (teamMatchData[i].outcome === '-1') {
+      teamMatchData[i].outcome = 'WIN BY OPPONENT FAILURE';
+    } else if (teamMatchData[i].outcome === '-2') {
+      teamMatchData[i].outcome = 'LOSS BY SELF FAILURE';
+    } else if (teamMatchData[i].outcome === '-3') {
+      teamMatchData[i].outcome = 'TIE BY FAILURE';
     }
+  }
 
-    for (let i = 0; i < teamMatchData.length; i += 1) {
-      if (teamMatchData[i].outcome === '1') {
-        teamMatchData[i].outcome = 'WIN';
-      } else if (teamMatchData[i].outcome === '2') {
-        teamMatchData[i].outcome = 'LOSS';
-      } else if (teamMatchData[i].outcome === '0') {
-        teamMatchData[i].outcome = 'TIE';
-      } else if (teamMatchData[i].outcome === '-1') {
-        teamMatchData[i].outcome = 'WIN BY OPPONENT FAILURE';
-      } else if (teamMatchData[i].outcome === '-2') {
-        teamMatchData[i].outcome = 'LOSS BY SELF FAILURE';
-      } else if (teamMatchData[i].outcome === '-3') {
-        teamMatchData[i].outcome = 'TIE BY FAILURE';
-      }
-    }
-
-    // sort matchData by id
-    const sortedMatchData = teamMatchData.sort(
-      (a, b) => parseInt(b.id, 10) - parseInt(a.id, 10),
-    );
-    return res.status(200).json(sortedMatchData);
+  // sort matchData by id
+  const sortedMatchData = teamMatchData.sort(
+    (a, b) => parseInt(b.id, 10) - parseInt(a.id, 10),
+  );
+  return res.status(200).json(sortedMatchData);
 
 }
