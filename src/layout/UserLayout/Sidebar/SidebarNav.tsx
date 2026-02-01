@@ -17,6 +17,12 @@ import Link from 'next/link';
 import { useSession } from 'next-auth/react';
 import { useCookies } from 'react-cookie';
 
+function isUserOrAdmin(role: string | undefined | null): boolean {
+  if (!role) return false;
+  if (role === 'user' || role === 'admin') return true;
+  return false;
+}
+
 type SidebarNavItemProps = {
   href: string;
   icon?: IconDefinition;
@@ -45,7 +51,7 @@ const ProtectedSidebarUserItems = () => {
   const { status, data } = useSession();
 
   if (status === 'authenticated') {
-    if (!data?.user || data.user.role !== 'user') return null;
+    if (!data?.user || !isUserOrAdmin(data.user.role)) return null;
     return (
       <SidebarNavItem icon={faPeopleGroup} href='/team'>
         Team
@@ -63,7 +69,7 @@ const ProtectedSidebarTeamItems = () => {
   if (status === 'authenticated') {
     if (
       !data?.user ||
-      data.user.role !== 'user' ||
+      !isUserOrAdmin(data.user.role) ||
       !cookies.user ||
       !cookies.user.teamname ||
       cookies.user.teamname === ''
