@@ -289,14 +289,11 @@ const RoundRobinProgressBar: React.FC = () => {
     return null;
   }
 
-  const progressPercent =
-    roundRobinState.total > 0
-      ? (
-        roundRobinState.completed === roundRobinState.total
-          ? 100
-          : Math.min(Math.round((roundRobinState.completed / roundRobinState.total) * 100), 99)
-      )
-      : 0;
+  const progressPercent = (() => {
+    if (roundRobinState.total <= 0) return 0;
+    if (roundRobinState.completed === roundRobinState.total) return 100;
+    return Math.min(Math.round((roundRobinState.completed / roundRobinState.total) * 100), 99);
+  })();
 
   const formatTimestamp = (timestamp: string) => {
     if (!timestamp) return 'N/A';
