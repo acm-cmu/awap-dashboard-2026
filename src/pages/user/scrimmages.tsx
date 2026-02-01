@@ -293,11 +293,13 @@ const Scrimmages: NextPage = ({
     mutate,
   } = useSWR('/api/user/match-history', fetcher);
 
-  // Filter out tournament matches if SHOW_TOURNAMENT_MATCH_HISTORY is not enabled
+  // Filter out HIDDEN matches always, and tournament matches if SHOW_TOURNAMENT_MATCH_HISTORY is not enabled
   let filteredMatchData = MatchData;
-  if (MatchData && !showTournamentMatchHistory) {
+  if (MatchData) {
     filteredMatchData = MatchData.filter(
-      (match: Match) => match.type !== 'TOURNAMENT',
+      (match: Match) =>
+        match.type !== 'HIDDEN' &&
+        (showTournamentMatchHistory || match.type !== 'TOURNAMENT'),
     );
   }
 
