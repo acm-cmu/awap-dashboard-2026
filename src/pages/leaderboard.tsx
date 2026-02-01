@@ -13,6 +13,7 @@ import {
 import React, { PropsWithChildren, useEffect, useState } from 'react';
 import ReactPaginate from 'react-paginate';
 import { useRouter } from 'next/router';
+import RoundRobinProgressBar from '@components/RoundRobinProgressBar';
 import {
   DynamoDB,
   DynamoDBClientConfig,
@@ -212,6 +213,7 @@ const Teams: NextPage<Props> = (props) => {
 
   return (
     <UserLayout>
+      <RoundRobinProgressBar />
       <Card>
         <Card.Header>Leaderboard</Card.Header>
         <Card.Body>
